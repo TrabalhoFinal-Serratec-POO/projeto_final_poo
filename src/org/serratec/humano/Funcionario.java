@@ -1,4 +1,4 @@
-package org.serratec.grupo.humano;
+package org.serratec.humano;
 
 import java.time.LocalDate;
 
