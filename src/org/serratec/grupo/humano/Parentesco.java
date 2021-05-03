@@ -1,4 +1,4 @@
-package br.grupo.humano;
+package org.serratec.grupo.humano;
 
 public enum Parentesco {
 	FILHO(1, "Filho"), SOBRINHO(2, "Sobrinho"), OUTROS(3, "Outros");
