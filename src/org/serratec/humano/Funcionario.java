@@ -53,16 +53,25 @@ public class Funcionario extends Pessoa {
 	}
 
 	public void setDescontoIR(double descontoIR) {
-		if (salarioB < 1903.99) {
-			descontoIR = 0; 
-		}else if (salarioB < 2826.66) {
-			descontoIR = (salarioB - dependentes.length - descontoInss) * .075 - 142.8;
-		}else if (salarioB < 3751.06) {
-			descontoIR = (salarioB - dependentes.length - descontoInss) * .15 - 354.8;
-		}else if (salarioB < 4664.68) {
-			descontoIR = (salarioB - dependentes.length - descontoInss) * .225 - 636.13;
+		double dep;
+		if (getDescontoInss() == 0) {
+			setDescontoInss();
+		}
+		if (dependentes == null) {
+			dep = 0;
 		}else {
-			descontoIR = (salarioB - dependentes.length - descontoInss) * .275 - 869.36;
+			dep = dependentes.length * 189.59;
+		}
+		if (salarioB < 1903.99) {
+			descontoIR = 0;
+		}else if (salarioB < 2826.66) {
+			descontoIR = (salarioB - dep - descontoInss) * .075 - 142.8;
+		}else if (salarioB < 3751.06) {
+			descontoIR = (salarioB - dep - descontoInss) * .15 - 354.8;
+		}else if (salarioB < 4664.68) {
+			descontoIR = (salarioB - dep - descontoInss) * .225 - 636.13;
+		}else {
+			descontoIR = (salarioB - dep - descontoInss) * .275 - 869.36;
 		}
 	}
 
