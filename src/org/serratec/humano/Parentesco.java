@@ -3,8 +3,8 @@ package org.serratec.humano;
 public enum Parentesco {
 	FILHO(1, "Filho"), SOBRINHO(2, "Sobrinho"), OUTROS(3, "Outros");
 
-	private int tipo;
-	private String parentesco;
+	private final int tipo;
+	private final String parentesco;
 
 	private Parentesco(int tipo, String parentesco) {
 		this.tipo = tipo;
