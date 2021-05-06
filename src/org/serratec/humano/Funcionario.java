@@ -1,25 +1,24 @@
 package org.serratec.humano;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Funcionario extends Pessoa {
 	private double salarioB, descontoInss, descontoIR;
-	private Dependente dependentes[];
+	private List<Dependente> dependentes = new ArrayList<Dependente>();
 
-	public Funcionario(String nome, String cpf, LocalDate localDate, double salarioB, double descontoInss,
-			double descontoIR) {
+	public Funcionario(String nome, String cpf, LocalDate localDate, double salarioB) {
 		super(nome, cpf, localDate);
 		this.salarioB = salarioB;
-		this.descontoInss = descontoInss;
-		this.descontoIR = descontoIR;
 	}
 
-	public Dependente[] getDependentes() {
+	public List<Dependente> getDependentes() {
 		return dependentes;
 	}
 
-	public void setDependentes(Dependente[] dependentes) {
-		this.dependentes = dependentes;
+	public void setDependentes(Dependente dependentes) {
+		this.dependentes.add(dependentes);
 	}
 
 	public double getSalarioB() {
@@ -52,7 +51,7 @@ public class Funcionario extends Pessoa {
 		return descontoIR;
 	}
 
-	public void setDescontoIR(double descontoIR) {
+	public void setDescontoIR() {
 		double dep;
 		if (getDescontoInss() == 0) {
 			setDescontoInss();
@@ -60,18 +59,20 @@ public class Funcionario extends Pessoa {
 		if (dependentes == null) {
 			dep = 0;
 		}else {
-			dep = dependentes.length * 189.59;
+			dep = dependentes.size() * 189.59;
 		}
-		if (salarioB < 1903.99) {
+		
+		double salarioBase= salarioB - dep - descontoInss;
+		if (salarioBase < 1903.99) {
 			descontoIR = 0;
-		}else if (salarioB < 2826.66) {
-			descontoIR = (salarioB - dep - descontoInss) * .075 - 142.8;
-		}else if (salarioB < 3751.06) {
-			descontoIR = (salarioB - dep - descontoInss) * .15 - 354.8;
-		}else if (salarioB < 4664.68) {
-			descontoIR = (salarioB - dep - descontoInss) * .225 - 636.13;
+		}else if (salarioBase < 2826.66) {
+			descontoIR = salarioBase * .075 -142.8;
+		}else if (salarioBase < 3751.06) {
+			descontoIR = salarioBase * .15 - 354.8;
+		}else if (salarioBase < 4664.68) {
+			descontoIR = salarioBase* .225 - 636.13;
 		}else {
-			descontoIR = (salarioB - dep - descontoInss) * .275 - 869.36;
+			descontoIR = salarioBase * .275 - 869.36;
 		}
 	}
 
