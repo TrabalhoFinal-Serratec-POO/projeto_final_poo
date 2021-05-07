@@ -35,14 +35,14 @@ public class Funcionario extends Pessoa {
 
 	public void setDescontoInss() {
 		if (salarioB < 1100.01) {
-			descontoInss = salarioB * .075; 
-		}else if (salarioB < 2203.49) {
+			descontoInss = salarioB * .075;
+		} else if (salarioB < 2203.49) {
 			descontoInss = salarioB * .09 - 16.5;
-		}else if (salarioB < 3305.23) {
+		} else if (salarioB < 3305.23) {
 			descontoInss = salarioB * .12 - 82.61;
-		}else if (salarioB < 6433.58) {
+		} else if (salarioB < 6433.58) {
 			descontoInss = salarioB * .14 - 148.72;
-		}else {
+		} else {
 			descontoInss = 751.98;
 		}
 	}
@@ -58,22 +58,28 @@ public class Funcionario extends Pessoa {
 		}
 		if (dependentes == null) {
 			dep = 0;
-		}else {
+		} else {
 			dep = dependentes.size() * 189.59;
 		}
-		
-		double salarioBase= salarioB - dep - descontoInss;
+
+		double salarioBase = salarioB - dep - descontoInss;
 		if (salarioBase < 1903.99) {
 			descontoIR = 0;
-		}else if (salarioBase < 2826.66) {
-			descontoIR = salarioBase * .075 -142.8;
-		}else if (salarioBase < 3751.06) {
+		} else if (salarioBase < 2826.66) {
+			descontoIR = salarioBase * .075 - 142.8;
+		} else if (salarioBase < 3751.06) {
 			descontoIR = salarioBase * .15 - 354.8;
-		}else if (salarioBase < 4664.68) {
-			descontoIR = salarioBase* .225 - 636.13;
-		}else {
+		} else if (salarioBase < 4664.68) {
+			descontoIR = salarioBase * .225 - 636.13;
+		} else {
 			descontoIR = salarioBase * .275 - 869.36;
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Funcionario [salarioB=" + salarioB + ", descontoInss=" + descontoInss + ", descontoIR=" + descontoIR
+				+ ", dependentes=" + dependentes + "]";
 	}
 
 }

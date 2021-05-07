@@ -2,7 +2,7 @@ package org.serratec.humano;
 
 import java.time.LocalDate;
 
-import org.serratec.DepedenteException;
+import org.serratec.excecoes.DepedenteException;
 
 public class Dependente extends Pessoa {
 	private Parentesco parente;
@@ -18,6 +18,11 @@ public class Dependente extends Pessoa {
 		} else {
 			throw new DepedenteException();
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Dependente [parente=" + parente + "]";
 	}
 
 }
