@@ -1,28 +1,44 @@
 package org.serratec.humano;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+import org.serratec.DepedenteException;
 import org.serratec.ioarquivo.EntradaDados;
 
 public class MainTeste {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		System.out.println("Informe o caminho do arquivo.csv");
 		Scanner sc = new Scanner(System.in);
 		String caminho = sc.next();
+		boolean booleano = false;
 
-		EntradaDados arquivo = new EntradaDados(caminho);
-		try {
+		try (EntradaDados arquivo = new EntradaDados(caminho);) {
 			arquivo.leituraArquivo();
 			for (Funcionario fun : arquivo.getLista()) {
+				fun.setDescontoInss();
+				fun.setDescontoIR();
 				System.out.println(fun);
 			}
+		} catch (NumberFormatException e) {
+			System.out.println("Dados de salário inválidos!");
+		} catch (FileNotFoundException e) {
+			System.out.println("Arquivo não encontrado!");
+			booleano = true;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Falha na abertura do arquivo!");
+			booleano = true;
 			e.printStackTrace();
+		} finally {
+			if (booleano) {
+				String[] arg = {};
+				MainTeste.main(arg);
+			}
 		}
+
 		sc.close();
 
 //		Funcionario f1= new Funcionario("Rodrigo", "12345678", LocalDate.of(1995, 8, 24),7000);

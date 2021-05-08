@@ -78,8 +78,8 @@ public class Funcionario extends Pessoa {
 
 	@Override
 	public String toString() {
-		return "Funcionario [salarioB=" + salarioB + ", descontoInss=" + descontoInss + ", descontoIR=" + descontoIR
-				+ ", dependentes=" + dependentes + "]";
+		return this.getNome() + ";" + this.getCpf() + ";" + String.format("%.2f", descontoInss) + ";" +
+				String.format("%.2f", descontoIR) + ";" + String.format("%.2f", (salarioB - descontoInss - descontoIR)) + this.getDependentes();
 	}
 
 }
