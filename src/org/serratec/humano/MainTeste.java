@@ -4,17 +4,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-import org.serratec.DepedenteException;
+import org.serratec.excecoes.FuncionarioException;
 import org.serratec.ioarquivo.EntradaDados;
 
 public class MainTeste {
 
 	public static void main(String[] args) throws Exception {
 
-		System.out.println("Informe o caminho do arquivo.csv");
+		System.out.println("Informe o caminho do arquivo.csv: ");
 		Scanner sc = new Scanner(System.in);
 		String caminho = sc.next();
-		boolean booleano = false;
 
 		try (EntradaDados arquivo = new EntradaDados(caminho);) {
 			arquivo.leituraArquivo();
@@ -24,22 +23,24 @@ public class MainTeste {
 				System.out.println(fun);
 			}
 		} catch (NumberFormatException e) {
-			System.out.println("Dados de sal·rio inv·lidos!");
+			System.out.println("Dados de sal√°rio inv√°lidos!");
 		} catch (FileNotFoundException e) {
-			System.out.println("Arquivo n„o encontrado!");
-			booleano = true;
+			System.out.println("Arquivo n√£o encontrado!");
 		} catch (IOException e) {
 			System.out.println("Falha na abertura do arquivo!");
-			booleano = true;
 			e.printStackTrace();
+		} catch (FuncionarioException f) {
+			System.out.println(f.getMessage());
 		} finally {
-			if (booleano) {
+			System.out.print("Deseja tentar novamente? [SIM/N√ÉO]: ");
+			if ("SIM".equals(sc.next().toUpperCase())) {
 				String[] arg = {};
 				MainTeste.main(arg);
+			} else {
+				System.out.println("Programa finalizado.");
+				sc.close();
 			}
 		}
-
-		sc.close();
 
 //		Funcionario f1= new Funcionario("Rodrigo", "12345678", LocalDate.of(1995, 8, 24),7000);
 //		Funcionario f2= new Funcionario("Rodrigo", "12345678", LocalDate.of(1995, 8, 24),2000);

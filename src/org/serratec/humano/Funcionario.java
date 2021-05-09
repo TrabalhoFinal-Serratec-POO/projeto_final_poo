@@ -1,24 +1,24 @@
 package org.serratec.humano;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Funcionario extends Pessoa {
 	private double salarioB, descontoInss, descontoIR;
-	private List<Dependente> dependentes = new ArrayList<Dependente>();
+	private Set<Dependente> dependentes = new HashSet<Dependente>();
 
 	public Funcionario(String nome, String cpf, LocalDate localDate, double salarioB) {
 		super(nome, cpf, localDate);
 		this.salarioB = salarioB;
 	}
 
-	public List<Dependente> getDependentes() {
+	public Set<Dependente> getDependentes() {
 		return dependentes;
 	}
 
-	public void setDependentes(Dependente dependentes) {
-		this.dependentes.add(dependentes);
+	public boolean setDependentes(Dependente dependentes) {
+		return this.dependentes.add(dependentes);
 	}
 
 	public double getSalarioB() {
@@ -78,8 +78,33 @@ public class Funcionario extends Pessoa {
 
 	@Override
 	public String toString() {
-		return this.getNome() + ";" + this.getCpf() + ";" + String.format("%.2f", descontoInss) + ";" +
-				String.format("%.2f", descontoIR) + ";" + String.format("%.2f", (salarioB - descontoInss - descontoIR)) + this.getDependentes();
+		return this.getNome() + ";" + this.getCpf() + ";" + String.format("%.2f", descontoInss) + ";"
+				+ String.format("%.2f", descontoIR) + ";"
+				+ String.format("%.2f", (salarioB - descontoInss - descontoIR)) + this.getDependentes();
+	}
+
+	// Sobrescrita dos Métodos: hashCode e equals.
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((dependentes == null) ? 0 : dependentes.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(descontoIR);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(descontoInss);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(salarioB);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+
+		// Verificação inicial de cpf ao adicionar o funcionario.
+		return this.getCpf().equals(((Funcionario) obj).getCpf());
 	}
 
 }

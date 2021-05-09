@@ -2,8 +2,6 @@ package org.serratec.humano;
 
 import java.time.LocalDate;
 
-import org.serratec.excecoes.DepedenteException;
-
 public class Dependente extends Pessoa {
 	private Parentesco parente;
 
@@ -12,17 +10,26 @@ public class Dependente extends Pessoa {
 		this.parente = parente;
 	}
 
-	public void setIdade(int idade) throws DepedenteException {
-		if (idade < 18) {
-			System.out.println("Apto");
-		} else {
-			throw new DepedenteException();
-		}
+	@Override
+	public String toString() {
+		return super.toString() + "Dependente [parente=" + parente + "]";
+	}
+
+	// Sobrescrita dos Métodos: hashCode e equals.
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((parente == null) ? 0 : parente.hashCode());
+		return result;
 	}
 
 	@Override
-	public String toString() {
-		return "Dependente [parente=" + parente + "]";
+	public boolean equals(Object obj) {
+
+		// Verificação inicial de cpf ao adicionar o dependente.
+		return this.getCpf().equals(((Dependente) obj).getCpf());
 	}
 
 }
