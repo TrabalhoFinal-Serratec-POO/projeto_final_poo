@@ -80,7 +80,7 @@ public class Funcionario extends Pessoa {
 	public String toString() {
 		return this.getNome() + ";" + this.getCpf() + ";" + String.format("%.2f", descontoInss) + ";"
 				+ String.format("%.2f", descontoIR) + ";"
-				+ String.format("%.2f", (salarioB - descontoInss - descontoIR)) + this.getDependentes();
+				+ String.format("%.2f", (salarioB - descontoInss - descontoIR));
 	}
 
 	// Sobrescrita dos Métodos: hashCode e equals.
